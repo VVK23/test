@@ -1,0 +1,4 @@
+SET x=##class(%SYS.NLS.Format).SetFormatItem("DateFormat",4)
+
+ WRITE !,$ZDATE($HOROLOG)
+
