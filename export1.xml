@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2016.1.2 (Build 209U)" ts="2017-04-26 10:58:29">
+<Class name="DemoPack.DemoClass">
+<Super>%Persistent,%Populate</Super>
+<TimeChanged>64356,55898.472837</TimeChanged>
+<TimeCreated>64351,52123.29045</TimeCreated>
+
+<Property name="number1">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="name">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="date">
+<Type>%DateTime</Type>
+<Required>1</Required>
+<Parameter name="DATEFORMAT" value="DD Mmm [YY]YY "/>
+</Property>
+
+<Property name="demoarr">
+<Type>%Numeric</Type>
+<Collection>array</Collection>
+</Property>
+
+<Method name="split">
+<ClassMethod>1</ClassMethod>
+<Implementation><![CDATA[
+	
+	set oject = ##class(DemoPack.DemoClass).%New()	
+	
+		set fname = $piece(name,"_",1)
+		set lname = $piece(name,"_",2)
+		write fname_" "_lname
+]]></Implementation>
+</Method>
+
+<Method name="time">
+<ClassMethod>1</ClassMethod>
+<Implementation><![CDATA[
+	
+	set temp = $SYSTEM.SYS.Horolog()
+	write $zdate(temp,"DD/MM/[YY]YY ")
+]]></Implementation>
+</Method>
+
+<Method name="sstring">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>nm:%String</FormalSpec>
+<Implementation><![CDATA[
+	set nam= $reverse(nm)
+	
+	set len =$length(nm)
+	write nam_" "_len
+]]></Implementation>
+</Method>
+
+<Method name="evenodd">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>number1:%String</FormalSpec>
+<Implementation><![CDATA[
+	if (number1 # 2 = 0)
+	{
+		write "It's a even no"
+		
+		}
+		
+	else
+	{ 
+	write "It's a odd no"	
+	}
+]]></Implementation>
+</Method>
+
+<Method name="prmno">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>number1:%Integer,number2:%Integer</FormalSpec>
+<Implementation><![CDATA[
+	
+
+    set flag = 0
+   while(number1 <number2)
+   {
+		for i=2:1:(number1-1)
+		{
+			if (number1#i=0)
+			{ 
+			    set flag=1
+			   break 0
+			}
+			
+		}		
+		if (flag=0)
+		{    
+			write number1 _ " " _ "is prime"
+		}
+		set flag=0
+		set number1= number1 +1
+}
+]]></Implementation>
+</Method>
+
+<Method name="strtest">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>name:%String,r:%String,w:%String</FormalSpec>
+<Implementation><![CDATA[
+	
+	/*for i=1:1:$length(name){
+		
+		set value = $piece(name,"a",i)
+		
+		    //set value = value_"$"_value
+		    //write !, value
+		    for i=1:1:value '=""
+		    {
+			    set value= value_ "$" _ value
+			    } 
+			    write value
+		 
+		 
+		}*/
+		
+		write $Translate(name,r,w)
+]]></Implementation>
+</Method>
+
+<Method name="Check">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>nm:%String,num:%String</FormalSpec>
+<Implementation><![CDATA[
+	set Empty = ((nm="") && (num=""))
+	quit:(Empty)
+	&sql(insert into DemoPack.DemoClass(name,number1)values(:nm,:num))
+]]></Implementation>
+</Method>
+
+<Method name="strtest1">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>name:%String</FormalSpec>
+<Implementation><![CDATA[
+	/*for i=1:1:$length(name)
+	
+	if i =("!" ! "@" ! "$")
+	{
+		write $replace(name,i,"")
+	}
+		}
+		write name*/
+		
+		set y = $translate(name,".*^*^%<>","")
+		write y
+]]></Implementation>
+</Method>
+
+<Method name="strtest2">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>name:%String</FormalSpec>
+<Implementation><![CDATA[
+	
+	set y = $replace(name,"_","&")
+	write y
+]]></Implementation>
+</Method>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^DemoPack.DemoClassD</DataLocation>
+<DefaultData>DemoClassDefaultData</DefaultData>
+<IdLocation>^DemoPack.DemoClassD</IdLocation>
+<IndexLocation>^DemoPack.DemoClassI</IndexLocation>
+<StreamLocation>^DemoPack.DemoClassS</StreamLocation>
+<Data name="DemoClassDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>name</Value>
+</Value>
+<Value name="3">
+<Value>date</Value>
+</Value>
+<Value name="4">
+<Value>number</Value>
+</Value>
+<Value name="5">
+<Value>number1</Value>
+</Value>
+</Data>
+<Data name="demoarr">
+<Attribute>demoarr</Attribute>
+<Structure>subnode</Structure>
+<Subscript>"demoarr"</Subscript>
+</Data>
+</Storage>
+</Class>
+</Export>
